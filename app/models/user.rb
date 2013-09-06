@@ -1,7 +1,7 @@
 require 'digest/sha2'
 
 class User < ActiveRecord::Base
-  attr_accessible :hashed_password, :name, :salt
+  attr_accessible  :name, 	:password,	:password_confirmation
 
   validates :name,	:presence	=> true, :uniqueness	=> true
   validates	:password,	:confirmation	=> true
@@ -27,7 +27,7 @@ class User < ActiveRecord::Base
 		  @password	=	password
 		  if	password.present?
 				  generate_salt
-				  self.hashed_password	=	self.calss.encrypt_password(password,	salt)
+				  self.hashed_password	=	self.class.encrypt_password(password,	salt)
 		  end
   end
 
